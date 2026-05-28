@@ -2,6 +2,10 @@
 .DS_Store
 Thumbs.db
 
+# macOS 스크린샷 (디버깅용 캡처 — 저장소에 올리지 않음)
+스크린샷*.png
+Screenshot*.png
+
 # Editor
 .vscode/
 .idea/

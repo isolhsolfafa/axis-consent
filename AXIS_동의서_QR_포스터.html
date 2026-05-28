@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>AXIS 동의서 QR 포스터</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'DM Sans', 'Noto Sans CJK SC', 'Malgun Gothic', sans-serif;
+    color: #2A2D35;
+    background: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 210mm;
+    padding: 14mm 18mm 12mm;
+    background: #FFFFFF;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 6mm;
+    border-bottom: 1px solid #E5E7EB;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    background: #2A2D35;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.5px;
+  }
+  .brand-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2A2D35;
+  }
+  .brand-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #8B90A0;
+    letter-spacing: 0.3px;
+  }
+  .header-meta {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #9CA3AF;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Title ── */
+  .title-block {
+    text-align: center;
+    margin: 8mm 0 6mm;
+  }
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: #6366F1;
+    background: #EEF2FF;
+    padding: 3px 12px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    margin-bottom: 5mm;
+  }
+  .title {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    margin-bottom: 3mm;
+    line-height: 1.2;
+  }
+  .title span { color: #6366F1; }
+  .subtitle {
+    font-size: 12px;
+    color: #8B90A0;
+    line-height: 1.55;
+    max-width: 130mm;
+    margin: 0 auto;
+  }
+
+  /* ── QR section ── */
+  .qr-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2mm auto 4mm;
+  }
+  .qr-frame {
+    width: 58mm;
+    height: 58mm;
+    padding: 4mm;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    box-shadow: 0 4px 18px rgba(42, 45, 53, .06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .qr-frame img {
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+  }
+  .qr-caption {
+    margin-top: 4mm;
+    text-align: center;
+  }
+  .qr-caption .scan {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2A2D35;
+  }
+  .qr-caption .scan-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #9CA3AF;
+    margin-top: 1.5mm;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Steps ── */
+  .steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3mm;
+    margin: 3mm 0 5mm;
+  }
+  .step {
+    text-align: center;
+    padding: 4mm 3mm;
+    background: #F5F5F7;
+    border-radius: 8px;
+  }
+  .step .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: #6366F1;
+    background: #EEF2FF;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 2mm;
+    letter-spacing: 0.3px;
+  }
+  .step .title {
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 1mm;
+    letter-spacing: -0.2px;
+  }
+  .step .desc {
+    font-size: 10px;
+    color: #8B90A0;
+    line-height: 1.5;
+  }
+
+  /* ── Key info ── */
+  .key-info {
+    background: #F5F5F7;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 4mm 6mm;
+    margin-bottom: 4mm;
+  }
+  .key-info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5mm 0;
+    font-size: 11px;
+    border-bottom: 1px solid #E5E7EB;
+  }
+  .key-info-row:last-child { border-bottom: 0; }
+  .key-info-row .label {
+    color: #8B90A0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3px;
+  }
+  .key-info-row .value {
+    color: #2A2D35;
+    font-weight: 500;
+  }
+
+  /* ── Notice ── */
+  .notice {
+    padding: 4mm 5mm;
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: 8px;
+    font-size: 10px;
+    color: #92400E;
+    line-height: 1.6;
+  }
+  .notice b { color: #78350F; }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 4mm;
+    padding-top: 4mm;
+    border-top: 1px solid #E5E7EB;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #9CA3AF;
+    letter-spacing: 0.3px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="brand">
+      <div class="brand-mark">GST</div>
+      <div>
+        <div class="brand-name">GST · AX본부 DX팀</div>
+        <div class="brand-sub">G-AXIS Manufacturing Execution System</div>
+      </div>
+    </div>
+    <div class="header-meta">
+      AXIS-OPS / AXIS-VIEW<br>
+      v2.19.x · v1.49.x
+    </div>
+  </div>
+
+  <!-- Title -->
+  <div class="title-block">
+    <div class="tag">AXIS 시스템 사용 동의서</div>
+    <div class="title">QR 스캔으로<br><span>즉시 제출</span>하세요</div>
+    <p class="subtitle">교육 입장 전 본인 핸드폰으로 QR 코드를 스캔하시면<br>동의서를 1~2분 안에 제출하실 수 있습니다.</p>
+  </div>
+
+  <!-- QR -->
+  <div class="qr-block">
+    <div class="qr-frame">
+      <img src="AXIS_동의서_QR.png" alt="동의서 QR">
+    </div>
+    <div class="qr-caption">
+      <div class="scan">휴대폰 카메라로 스캔</div>
+      <div class="scan-sub">axis-consent.netlify.app</div>
+    </div>
+  </div>
+
+  <!-- Steps -->
+  <div class="steps">
+    <div class="step">
+      <div class="num">01</div>
+      <div class="title">QR 스캔</div>
+      <div class="desc">휴대폰 카메라로<br>좌측 QR 인식</div>
+    </div>
+    <div class="step">
+      <div class="num">02</div>
+      <div class="title">정보 입력 + 동의</div>
+      <div class="desc">소속·성명·동의 3종<br>+ 자필 서명</div>
+    </div>
+    <div class="step">
+      <div class="num">03</div>
+      <div class="title">자동 제출</div>
+      <div class="desc">관리자에게<br>실시간 도달</div>
+    </div>
+  </div>
+
+  <!-- Key info -->
+  <div class="key-info">
+    <div class="key-info-row">
+      <span class="label">SUBJECT</span>
+      <span class="value">개인정보 수집·이용 / 제3자 제공 / 시스템 이용 약관</span>
+    </div>
+    <div class="key-info-row">
+      <span class="label">DURATION</span>
+      <span class="value">1~2분</span>
+    </div>
+    <div class="key-info-row">
+      <span class="label">DEVICE</span>
+      <span class="value">본인 휴대폰 (Android · iOS 모두 가능)</span>
+    </div>
+    <div class="key-info-row">
+      <span class="label">CONTACT</span>
+      <span class="value">GST AX본부 DX팀</span>
+    </div>
+  </div>
+
+  <!-- Notice -->
+  <div class="notice">
+    <b>안내</b> · 본 동의서는 「개인정보 보호법」에 따른 사전 동의 절차입니다.
+    QR 스캔이 어려우신 경우 입구의 안내 직원에게 문의해주세요.
+    제출 완료 여부는 협력사 매니저 또는 GST AX팀이 실시간 확인 가능합니다.
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>GST · AX본부 DX팀</span>
+    <span>v1.0 · 2026-05-28</span>
+  </div>
+
+</div>
+</body>
+</html>
