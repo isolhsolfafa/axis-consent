@@ -155,6 +155,24 @@
   input::placeholder { color: var(--g400); }
   select { cursor: pointer; }
 
+  /* 자동 입력 안내 */
+  .auto-date-note {
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--g500);
+    letter-spacing: 0.3px;
+  }
+  .auto-date-note .auto-tag {
+    background: var(--a-light);
+    color: var(--a);
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 4px;
+    font-weight: 600;
+    font-size: 10px;
+  }
+
   /* 동의 박스 */
   .consent-item {
     border: 1px solid var(--g200);
@@ -351,45 +369,13 @@
           </select>
         </div>
         <div class="field">
-          <label>역할 (공정)<span class="req">*</span></label>
-          <select name="role" required>
-            <option value="">선택</option>
-            <option value="MECH">MECH (기구)</option>
-            <option value="ELEC">ELEC (전장)</option>
-            <option value="TM">TM (모듈)</option>
-            <option value="PI">PI (가압검사)</option>
-            <option value="QI">QI (공정검사)</option>
-            <option value="SI">SI (마무리검사)</option>
-            <option value="ADMIN">ADMIN</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="field">
           <label>성명<span class="req">*</span></label>
           <input type="text" name="name" required placeholder="홍길동">
         </div>
-        <div class="field">
-          <label>이메일<span class="req">*</span></label>
-          <input type="email" name="email" required placeholder="name@company.com">
-        </div>
       </div>
 
-      <div class="form-row">
-        <div class="field">
-          <label>교육 회차<span class="req">*</span></label>
-          <select name="session" required>
-            <option value="">선택</option>
-            <option value="MECH-AM">MECH (오전)</option>
-            <option value="ELEC-PM">ELEC (오후)</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>교육 일자<span class="req">*</span></label>
-          <input type="date" name="training_date" required>
-        </div>
-      </div>
+      <input type="hidden" name="training_date" id="training-date-input">
+      <p class="auto-date-note">교육 일자 <span id="training-date-display">—</span> <span class="auto-tag">AUTO</span></p>
     </div>
 
     <!-- §2 동의 항목 (3종 필수) -->
@@ -482,6 +468,17 @@
 </div>
 
 <script>
+  // ── 교육 일자 자동 입력 (today, KST) ──
+  (function setTodayDate() {
+    const t = new Date();
+    const y = t.getFullYear();
+    const m = String(t.getMonth() + 1).padStart(2, '0');
+    const d = String(t.getDate()).padStart(2, '0');
+    const today = `${y}-${m}-${d}`;
+    document.getElementById('training-date-input').value = today;
+    document.getElementById('training-date-display').textContent = today;
+  })();
+
   // ── 자필 서명 캔버스 ──
   const canvas = document.getElementById('sig-canvas');
   const ctx = canvas.getContext('2d');
