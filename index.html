@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AXIS 시스템 사용 동의서 — GST</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --c: #2A2D35;
+    --st: #8B90A0;
+    --a: #6366F1;
+    --a-light: #EEF2FF;
+    --bg: #FAFAFA;
+    --white: #FFFFFF;
+    --g100: #F5F5F7;
+    --g200: #E5E7EB;
+    --g400: #9CA3AF;
+    --g500: #6B7280;
+    --g700: #374151;
+    --green: #059669;
+    --green-bg: #ECFDF5;
+    --amber: #D97706;
+    --amber-bg: #FFFBEB;
+    --red: #DC2626;
+    --red-bg: #FEF2F2;
+  }
+
+  body {
+    font-family: 'DM Sans', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    background: var(--bg);
+    color: var(--c);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding: 24px 16px 60px;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .hero .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--a);
+    background: var(--a-light);
+    padding: 4px 12px;
+    border-radius: 4px;
+    letter-spacing: 0.4px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 6px;
+  }
+  .hero .sub {
+    font-size: 13px;
+    color: var(--st);
+    line-height: 1.55;
+  }
+
+  /* Sections */
+  .section {
+    background: var(--white);
+    border: 1px solid var(--g200);
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 14px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--c);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+  }
+  .section-title {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .section-desc {
+    font-size: 12px;
+    color: var(--st);
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  /* Form */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .form-row.full { grid-template-columns: 1fr; }
+
+  .field label {
+    display: block;
+    font-size: 12px;
+    color: var(--g500);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .field label .req {
+    color: var(--red);
+    margin-left: 2px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--g200);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--c);
+    background: var(--white);
+    transition: border-color .15s;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="date"]:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--a);
+    box-shadow: 0 0 0 3px var(--a-light);
+  }
+  input::placeholder { color: var(--g400); }
+  select { cursor: pointer; }
+
+  /* 동의 박스 */
+  .consent-item {
+    border: 1px solid var(--g200);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .consent-item .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .consent-item .ci-title {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .consent-item .ci-required {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: var(--red-bg);
+    color: var(--red);
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.3px;
+    font-weight: 600;
+  }
+  .consent-item .ci-desc {
+    font-size: 12px;
+    color: var(--st);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .consent-item .ci-desc b { color: var(--c); }
+  .consent-item .ci-radio {
+    display: flex;
+    gap: 14px;
+  }
+  .consent-item .ci-radio label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--g700);
+    cursor: pointer;
+  }
+  .consent-item .ci-radio input[type="radio"] {
+    margin: 0;
+    accent-color: var(--a);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+
+  /* 자필 서명 */
+  .sig-wrap {
+    border: 1px solid var(--g200);
+    border-radius: 8px;
+    padding: 12px;
+    background: var(--g100);
+  }
+  .sig-canvas {
+    width: 100%;
+    height: 160px;
+    background: var(--white);
+    border: 1px dashed var(--g200);
+    border-radius: 6px;
+    display: block;
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .sig-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .sig-actions .hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--g400);
+    letter-spacing: 0.3px;
+  }
+  .sig-clear {
+    background: var(--white);
+    border: 1px solid var(--g200);
+    color: var(--g700);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .sig-clear:hover { background: var(--g100); }
+
+  /* Submit */
+  .submit-row {
+    margin-top: 8px;
+    text-align: center;
+  }
+  .submit-btn {
+    background: var(--c);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 36px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 0.2px;
+    transition: opacity .15s;
+    width: 100%;
+  }
+  .submit-btn:hover { opacity: 0.88; }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .footer-note {
+    margin-top: 28px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--g400);
+    line-height: 1.6;
+  }
+
+  /* Error */
+  .error-msg {
+    display: none;
+    background: var(--red-bg);
+    color: var(--red);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(220, 38, 38, .2);
+  }
+  .error-msg.show { display: block; }
+
+  /* Honeypot (Netlify) - 사용자에게 안 보임 */
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="tag">GST · AX본부 DX팀</div>
+    <h1>AXIS 시스템 사용 동의서</h1>
+    <p class="sub">AXIS-OPS / AXIS-VIEW 시스템 이용을 위한<br>개인정보 수집·이용 및 시스템 이용 동의</p>
+  </div>
+
+  <!-- ── 폼 ── -->
+  <form name="consent"
+        method="POST"
+        action="/thank-you.html"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+        id="consent-form">
+    <!-- Netlify Forms 필수 -->
+    <input type="hidden" name="form-name" value="consent">
+    <p class="honeypot"><label>Don't fill this out: <input name="bot-field"></label></p>
+
+    <div class="error-msg" id="error-msg"></div>
+
+    <!-- §1 작업자 기본 정보 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">작업자 기본 정보</div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>협력사명<span class="req">*</span></label>
+          <select name="company" required>
+            <option value="">선택</option>
+            <option value="FNI">FNI</option>
+            <option value="BAT">BAT</option>
+            <option value="TMS(M)">TMS(M)</option>
+            <option value="TMS(E)">TMS(E)</option>
+            <option value="P&S">P&amp;S</option>
+            <option value="C&A">C&amp;A</option>
+            <option value="GST">GST (자사)</option>
+            <option value="OTHER">기타</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>역할 (공정)<span class="req">*</span></label>
+          <select name="role" required>
+            <option value="">선택</option>
+            <option value="MECH">MECH (기구)</option>
+            <option value="ELEC">ELEC (전장)</option>
+            <option value="TM">TM (모듈)</option>
+            <option value="PI">PI (가압검사)</option>
+            <option value="QI">QI (공정검사)</option>
+            <option value="SI">SI (마무리검사)</option>
+            <option value="ADMIN">ADMIN</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>성명<span class="req">*</span></label>
+          <input type="text" name="name" required placeholder="홍길동">
+        </div>
+        <div class="field">
+          <label>이메일<span class="req">*</span></label>
+          <input type="email" name="email" required placeholder="name@company.com">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>교육 회차<span class="req">*</span></label>
+          <select name="session" required>
+            <option value="">선택</option>
+            <option value="MECH-AM">MECH (오전)</option>
+            <option value="ELEC-PM">ELEC (오후)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>교육 일자<span class="req">*</span></label>
+          <input type="date" name="training_date" required>
+        </div>
+      </div>
+    </div>
+
+    <!-- §2 동의 항목 (3종 필수) -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">동의 항목</div>
+      </div>
+      <p class="section-desc">아래 3개 항목 모두 <b>「개인정보 보호법」</b>에 따른 필수 동의 항목입니다. 동의하지 않으실 권리가 있으나, 미동의 시 본 시스템 이용이 제한됩니다.</p>
+
+      <!-- 동의 1 -->
+      <div class="consent-item">
+        <div class="head">
+          <div class="ci-title">제1항. 개인정보 수집·이용</div>
+          <span class="ci-required">필수</span>
+        </div>
+        <div class="ci-desc">
+          <b>수집 항목:</b> 성명 · 소속 협력사 · 역할 · 이메일 · PIN(암호화)<br>
+          <b>이용 목적:</b> 본인 식별·인증, 작업 권한 부여, 알림 발송<br>
+          <b>보유 기간:</b> 최종 활동 후 30일 비활성화 자동 삭제 또는 협력사 매니저·Admin 수동 삭제 관리
+        </div>
+        <div class="ci-radio">
+          <label><input type="radio" name="consent_1" value="agree" required>동의함</label>
+          <label><input type="radio" name="consent_1" value="disagree">동의하지 않음</label>
+        </div>
+      </div>
+
+      <!-- 동의 2 -->
+      <div class="consent-item">
+        <div class="head">
+          <div class="ci-title">제2항. 개인정보 제3자 제공 (협력사 ↔ GST)</div>
+          <span class="ci-required">필수</span>
+        </div>
+        <div class="ci-desc">
+          <b>제공 받는 자:</b> GST (원청)<br>
+          <b>제공 항목:</b> 제1항 수집 항목 전체 + 작업 시작·완료 시각, 작업 시간, 체크리스트 입력값<br>
+          <b>이용 목적:</b> 협력사 작업 진행 상황·완료 시점·체크리스트 결과의 일정·품질 관리 활용
+        </div>
+        <div class="ci-radio">
+          <label><input type="radio" name="consent_2" value="agree" required>동의함</label>
+          <label><input type="radio" name="consent_2" value="disagree">동의하지 않음</label>
+        </div>
+      </div>
+
+      <!-- 동의 3 -->
+      <div class="consent-item">
+        <div class="head">
+          <div class="ci-title">제3항. 시스템 이용 약관</div>
+          <span class="ci-required">필수</span>
+        </div>
+        <div class="ci-desc">
+          PWA 설치 · 카메라 권한(QR 스캔) · 푸시 알림 수신 · 본인 작업 이력의 분석 통계 활용 · 디지털 기록이 종이 기록과 동일한 효력을 가짐에 동의합니다.
+        </div>
+        <div class="ci-radio">
+          <label><input type="radio" name="consent_3" value="agree" required>동의함</label>
+          <label><input type="radio" name="consent_3" value="disagree">동의하지 않음</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- §3 서명 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">자필 서명</div>
+      </div>
+      <p class="section-desc">아래 영역에 손가락(휴대폰) 또는 마우스로 직접 서명해주세요.</p>
+
+      <div class="sig-wrap">
+        <canvas id="sig-canvas" class="sig-canvas"></canvas>
+        <div class="sig-actions">
+          <span class="hint">서명 후 자동 저장</span>
+          <button type="button" class="sig-clear" id="sig-clear">지우기</button>
+        </div>
+      </div>
+      <input type="hidden" name="signature" id="signature-input">
+    </div>
+
+    <!-- 제출 -->
+    <div class="submit-row">
+      <button type="submit" class="submit-btn" id="submit-btn">동의서 제출</button>
+    </div>
+
+    <p class="footer-note">
+      v1.0.0 &emsp;|&emsp; 본 동의서는 GST AX본부 DX팀이 운영합니다<br>
+      문의: GST AX팀
+    </p>
+  </form>
+
+</div>
+
+<script>
+  // ── 자필 서명 캔버스 ──
+  const canvas = document.getElementById('sig-canvas');
+  const ctx = canvas.getContext('2d');
+  const sigInput = document.getElementById('signature-input');
+  let drawing = false;
+  let hasSignature = false;
+
+  // 캔버스 실 해상도 (Retina 대응)
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    ctx.strokeStyle = '#2A2D35';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function getCoords(e) {
+    const rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches[0]) {
+      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function startDraw(e) {
+    e.preventDefault();
+    drawing = true;
+    const p = getCoords(e);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const p = getCoords(e);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    hasSignature = true;
+    sigInput.value = canvas.toDataURL('image/png');
+  }
+
+  function endDraw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    drawing = false;
+  }
+
+  canvas.addEventListener('mousedown', startDraw);
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', endDraw);
+  canvas.addEventListener('mouseleave', endDraw);
+  canvas.addEventListener('touchstart', startDraw, { passive: false });
+  canvas.addEventListener('touchmove', draw, { passive: false });
+  canvas.addEventListener('touchend', endDraw, { passive: false });
+
+  document.getElementById('sig-clear').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hasSignature = false;
+    sigInput.value = '';
+  });
+
+  // ── 폼 제출 검증 ──
+  const form = document.getElementById('consent-form');
+  const errMsg = document.getElementById('error-msg');
+
+  form.addEventListener('submit', e => {
+    errMsg.classList.remove('show');
+
+    // 동의 3종 모두 'agree' 인지 검증
+    const c1 = form.consent_1.value;
+    const c2 = form.consent_2.value;
+    const c3 = form.consent_3.value;
+    if (c1 !== 'agree' || c2 !== 'agree' || c3 !== 'agree') {
+      e.preventDefault();
+      errMsg.textContent = '필수 동의 항목 3개 모두 "동의함"을 선택해주세요. 미동의 시 시스템 이용이 제한됩니다.';
+      errMsg.classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // 서명 검증
+    if (!hasSignature || !sigInput.value) {
+      e.preventDefault();
+      errMsg.textContent = '자필 서명이 누락되었습니다. 서명 영역에 직접 서명해주세요.';
+      errMsg.classList.add('show');
+      document.querySelector('.sig-wrap').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // 검증 통과 → Netlify Forms로 POST 후 /thank-you.html 로 자동 이동
+  });
+</script>
+
+</body>
+</html>

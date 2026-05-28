@@ -1,0 +1,30 @@
+# ────────────────────────────────────────────────────────
+# axis-consent — AXIS 시스템 사용 동의서 (Netlify 배포 설정)
+#
+# 정적 HTML 사이트 (빌드 도구 없음). Netlify Forms 자동 활성화.
+# axis-manual과 분리 운영 — 공개 접근 가능 (인증 미들웨어 없음).
+# ────────────────────────────────────────────────────────
+
+[build]
+  # 빌드 도구 없음 — 정적 HTML 그대로 publish
+  command = ""
+  publish = "."
+
+# Netlify Forms — index.html에 data-netlify="true" 폼이 있으면 자동 인식
+# 추가 설정 불필요. 응답은 Netlify 대시보드 → Forms 탭에서 확인.
+
+# 보안 헤더
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # 동의서는 카메라/마이크/위치 사용 안 함 — 명시적으로 차단
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# 정적 자산 캐시 (현재는 없지만 향후 이미지·폰트 추가 대비)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
