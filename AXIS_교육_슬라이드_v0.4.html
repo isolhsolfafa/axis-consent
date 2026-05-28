@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AXIS-OPS 사용 교육 슬라이드 v0.4</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --c: #2A2D35;
+    --st: #8B90A0;
+    --mi: #E8EAF0;
+    --a: #6366F1;
+    --a-light: #EEF2FF;
+    --bg: #FAFAFA;
+    --white: #FFFFFF;
+    --g100: #F5F5F7;
+    --g200: #E5E7EB;
+    --g400: #9CA3AF;
+    --g500: #6B7280;
+    --g700: #374151;
+    --green: #059669;
+    --green-bg: #ECFDF5;
+    --blue: #0070F3;
+    --blue-bg: #EFF6FF;
+    --amber: #D97706;
+    --amber-bg: #FFFBEB;
+    --red: #DC2626;
+    --red-bg: #FEF2F2;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--c);
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  /* ── Deck container ── */
+  .deck {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .slide {
+    width: min(95vw, 1100px);
+    height: min(94vh, 720px);
+    background: var(--white);
+    border: 1px solid var(--g200);
+    border-radius: 12px;
+    padding: 56px 72px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .slide.active {
+    display: flex;
+    animation: fade .2s ease;
+  }
+
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Section header (G-AXIS 패턴) ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--c);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--c);
+  }
+  .section-sub {
+    font-size: 13px;
+    color: var(--st);
+    margin-bottom: 28px;
+    padding-left: 40px;
+  }
+
+  /* ── Tag chips ── */
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--a);
+    background: var(--a-light);
+    padding: 4px 12px;
+    border-radius: 4px;
+    letter-spacing: 0.4px;
+  }
+
+  .tag.red {
+    color: var(--red);
+    background: var(--red-bg);
+  }
+
+  /* ── Cover ── */
+  .slide.cover {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .cover .tag { margin-bottom: 20px; }
+  .cover h1 {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--c);
+    letter-spacing: -0.6px;
+    margin-bottom: 12px;
+  }
+  .cover h1 span { color: var(--a); }
+  .cover .sub {
+    font-size: 16px;
+    color: var(--st);
+    max-width: 600px;
+    margin: 0 auto 36px;
+    line-height: 1.6;
+  }
+  .cover .session-badges {
+    display: inline-flex;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .session-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--white);
+    border: 1px solid var(--g200);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .session-badge .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+  .session-badge.mech .dot { background: var(--a); }
+  .session-badge.elec .dot { background: var(--blue); }
+  .session-badge .time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--g400);
+    margin-left: 4px;
+  }
+  .cover .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--g400);
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Why grid ── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .why-card {
+    background: var(--white);
+    border: 1px solid var(--g200);
+    border-radius: 10px;
+    padding: 22px;
+  }
+  .why-card .icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--a);
+    background: var(--a-light);
+    padding: 3px 8px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 12px;
+    letter-spacing: 0.4px;
+    font-weight: 600;
+  }
+  .why-card .icon.green { color: var(--green); background: var(--green-bg); }
+  .why-card .icon.blue { color: var(--blue); background: var(--blue-bg); }
+  .why-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--c);
+  }
+  .why-card p {
+    font-size: 13.5px;
+    color: var(--st);
+    line-height: 1.6;
+  }
+  .why-card.wide { grid-column: 1 / -1; }
+
+  /* ── Key message banner (G-AXIS 스타일) ── */
+  .slide.key-msg-slide {
+    background: var(--c);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-color: var(--c);
+  }
+  .key-msg-slide .quote {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.45;
+    letter-spacing: -0.3px;
+    max-width: 800px;
+    margin: 0 auto 24px;
+  }
+  .key-msg-slide .quote .hi { color: #A5B4FC; }
+  .key-msg-slide .sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--g400);
+    letter-spacing: 0.3px;
+  }
+  .key-msg-slide .tag {
+    background: rgba(255,255,255,.08);
+    color: #A5B4FC;
+    margin-bottom: 32px;
+  }
+
+  /* ── System diagram ── */
+  .system-row {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    align-items: stretch;
+    gap: 0;
+    margin-top: 4px;
+  }
+  .sys-card {
+    background: var(--white);
+    border: 1px solid var(--g200);
+    border-radius: 12px;
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .sys-card .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 14px;
+    letter-spacing: 0.3px;
+  }
+  .sys-card .badge.ops { background: var(--green-bg); color: var(--green); }
+  .sys-card .badge.view { background: var(--blue-bg); color: var(--blue); }
+  .sys-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--c);
+  }
+  .sys-card p {
+    font-size: 13px;
+    color: var(--st);
+    line-height: 1.6;
+  }
+  .sys-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--g400);
+    font-size: 20px;
+  }
+  .sys-note {
+    margin-top: 28px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--g500);
+  }
+  .sys-note .accent { color: var(--a); font-weight: 600; }
+
+  /* ── Flow ── */
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    margin-top: 12px;
+    flex-wrap: nowrap;
+  }
+  .flow-step {
+    background: var(--g100);
+    border: 1px solid var(--g200);
+    border-radius: 8px;
+    padding: 14px 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--g700);
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+  }
+  .flow-step.hi {
+    background: var(--a-light);
+    color: var(--a);
+    border-color: transparent;
+    font-weight: 600;
+  }
+  .flow-arrow {
+    color: var(--g400);
+    font-size: 14px;
+    padding: 0 8px;
+    flex-shrink: 0;
+  }
+  .flow-note {
+    margin-top: 28px;
+    font-size: 14px;
+    color: var(--g700);
+    line-height: 1.7;
+  }
+  .flow-note .hi { color: var(--a); font-weight: 600; }
+
+  /* ── Session split ── */
+  .session-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .session-card {
+    background: var(--white);
+    border: 1px solid var(--g200);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .session-card .sc-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: 0.4px;
+  }
+  .session-card.mech .sc-meta { color: var(--a); }
+  .session-card.elec .sc-meta { color: var(--blue); }
+  .session-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--c);
+  }
+  .session-card .target {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--g500);
+    margin-bottom: 16px;
+  }
+  .session-card .sc-list {
+    list-style: none;
+    padding: 0;
+  }
+  .session-card .sc-list li {
+    font-size: 13px;
+    color: var(--g700);
+    padding: 8px 0;
+    border-top: 1px solid var(--g200);
+    display: flex;
+    gap: 10px;
+    line-height: 1.55;
+  }
+  .session-card .sc-list li::before {
+    content: '·';
+    color: var(--g400);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+    flex-shrink: 0;
+  }
+  .session-card .sc-note {
+    margin-top: 16px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: var(--amber-bg);
+    color: var(--amber);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+
+  /* ── Live cue (인라인 강조, 풀스크린 배경 X) ── */
+  .live-cue-slide {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .live-cue-slide .live-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--red);
+    background: var(--red-bg);
+    padding: 6px 14px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+  }
+  .live-cue-slide .live-label .pulse {
+    width: 8px; height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+    animation: pulse 1.4s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .4; }
+  }
+  .live-cue-slide h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--c);
+    letter-spacing: -0.4px;
+    margin-bottom: 12px;
+  }
+  .live-cue-slide .sub {
+    font-size: 14px;
+    color: var(--st);
+    max-width: 520px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .live-cue-slide .url-box {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: var(--g100);
+    border: 1px dashed var(--g200);
+    color: var(--g500);
+    padding: 12px 18px;
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  /* ── Agenda table ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .data-table th {
+    background: var(--c);
+    color: var(--white);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+  }
+  .data-table th:first-child { border-radius: 8px 0 0 0; }
+  .data-table th:last-child { border-radius: 0 8px 0 0; }
+  .data-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--g200);
+    vertical-align: top;
+    color: var(--g700);
+  }
+  .data-table tr:nth-child(even) td { background: var(--g100); }
+  .data-table .time-cell {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--g500);
+    white-space: nowrap;
+  }
+  .data-table code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: var(--a-light);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: var(--a);
+  }
+  .live-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: var(--red-bg);
+    color: var(--red);
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+
+  /* ── TS tag ── */
+  .ts-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.3px;
+  }
+  .ts-tag.mech { background: var(--a-light); color: var(--a); }
+  .ts-tag.elec { background: var(--blue-bg); color: var(--blue); }
+  .ts-tag.common { background: var(--g100); color: var(--g500); }
+
+  /* ── Remember 5 ── */
+  .remember-list {
+    counter-reset: rem;
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .remember-list li {
+    counter-increment: rem;
+    background: var(--white);
+    border: 1px solid var(--g200);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--g700);
+  }
+  .remember-list li::before {
+    content: counter(rem);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--a);
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 2px;
+    min-width: 22px;
+  }
+  .remember-list li strong { font-weight: 600; color: var(--c); display: block; margin-bottom: 4px; }
+
+  /* ── Resource cards ── */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .resource-card {
+    background: var(--white);
+    border: 1px solid var(--g200);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .resource-card .rc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--g400);
+    margin-bottom: 6px;
+    letter-spacing: 0.4px;
+  }
+  .resource-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--c);
+  }
+  .resource-card p {
+    font-size: 13px;
+    color: var(--st);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .resource-card .rc-url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: var(--g100);
+    border: 1px dashed var(--g200);
+    color: var(--g500);
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+
+  /* ── Q&A 마지막 ── */
+  .qa-slide {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .qa-slide h1 {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--c);
+    letter-spacing: -0.6px;
+    margin-bottom: 16px;
+  }
+  .qa-slide .sub {
+    font-size: 16px;
+    color: var(--st);
+    margin-bottom: 40px;
+  }
+  .qa-slide .signup-note {
+    background: var(--white);
+    border: 1px solid var(--g200);
+    border-radius: 10px;
+    padding: 18px 24px;
+    font-size: 13px;
+    color: var(--g700);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  .qa-slide .signup-note .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    background: var(--amber-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 8px;
+    letter-spacing: 0.3px;
+  }
+  .qa-slide .footer-note {
+    margin-top: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--g400);
+  }
+
+  /* ── Counter · nav ── */
+  .counter {
+    position: fixed;
+    bottom: 16px;
+    right: 24px;
+    background: var(--c);
+    color: var(--white);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    z-index: 10;
+    letter-spacing: 0.3px;
+  }
+  .nav-hint {
+    position: fixed;
+    bottom: 16px;
+    left: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--g400);
+    z-index: 10;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Print ── */
+  @media print {
+    body { overflow: visible; }
+    .deck { display: block; height: auto; }
+    .slide {
+      display: flex !important;
+      box-shadow: none;
+      page-break-after: always;
+      margin: 0 auto 20px;
+    }
+    .slide.key-msg-slide { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .counter, .nav-hint { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="counter"><span id="cur">1</span> / <span id="tot">15</span></div>
+<div class="nav-hint">← → 또는 클릭으로 이동 · F 풀스크린</div>
+
+<div class="deck">
+
+  <!-- 1. Cover -->
+  <section class="slide cover active">
+    <div class="tag">GST · AX본부 DX팀 — 협력사 작업자 교육</div>
+    <h1><span>AXIS-OPS</span> 사용 교육</h1>
+    <p class="sub">디지털 작업 관리 시스템 운영 안내 — 현재 운영 중인 시스템의 핵심 사용법과 신규 도입분(MECH 체크리스트)을 다룹니다.</p>
+    <div class="session-badges">
+      <div class="session-badge mech"><span class="dot"></span><span>MECH 회차</span><span class="time">오전</span></div>
+      <div class="session-badge elec"><span class="dot"></span><span>ELEC 회차</span><span class="time">오후</span></div>
+    </div>
+    <p class="meta">소요 60분 &emsp;|&emsp; 강당 강의 + 라이브 매뉴얼 시연 &emsp;|&emsp; 2026-05-28 · v0.4</p>
+  </section>
+
+  <!-- 2. Why DX — 작업자 입장 -->
+  <section class="slide">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">왜 도입하는가 — 작업자 입장</div>
+    </div>
+    <p class="section-sub">"또 일거리 늘었네" 가 아니라 실제로 이런 부분이 편해집니다</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="icon">WORKER · 01</span>
+        <h4>종이 → 핸드폰</h4>
+        <p>작업지시서·체크리스트가 사라지고 QR 한 번으로 본인 작업이 자동으로 뜸</p>
+      </div>
+      <div class="why-card">
+        <span class="icon">WORKER · 02</span>
+        <h4>시간 기록 자동화</h4>
+        <p>시작·완료 시각을 본인이 적을 필요 없이 버튼 한 번이면 자동 기록</p>
+      </div>
+      <div class="why-card">
+        <span class="icon">WORKER · 03</span>
+        <h4>휴게시간 자동 일시정지</h4>
+        <p>점심·휴식 시간만큼 작업 시간 손해 안 보는 안전장치</p>
+      </div>
+      <div class="why-card">
+        <span class="icon">WORKER · 04</span>
+        <h4>본인 진행 상황 즉시 확인</h4>
+        <p>어디까지 했는지 본인 폰에서 한눈에 — 인계·재개 모두 편리</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Why DX — GST 입장 + 양방향 -->
+  <section class="slide">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">왜 도입하는가 — GST 입장</div>
+    </div>
+    <p class="section-sub">데이터로 현황 파악 → 협력사에 더 정확한 일정 제공이라는 양방향 이득</p>
+    <div class="why-grid">
+      <div class="why-card wide">
+        <span class="icon">GST · 현재의 한계</span>
+        <h4>"오늘 어디까지 됐어요?" 를 매번 묻는 운영</h4>
+        <p>전화·카톡으로 협력사에 확인 → 협력사가 작업자에게 확인 → 답이 올라오는 사이클이 매일 반복.</p>
+      </div>
+      <div class="why-card wide">
+        <span class="icon green">GST · 도입 후</span>
+        <h4>작업 현황을 데이터로 보고 협력사에 정확한 일정 제공</h4>
+        <p>매번 안 물어봐도 되고, 그 데이터로 협력사에 더 정확한 일정을 제공합니다. 협력사도 일정 예측이 쉬워지고, 일정 변경 빈도가 줄어듭니다 — <strong style="color: var(--green);">양방향 이득</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Key Message (G-AXIS 스타일 dark banner) -->
+  <section class="slide key-msg-slide">
+    <span class="tag">KEY MESSAGE</span>
+    <p class="quote">"여러분의 작업이 <span class="hi">더 잘 드러나고</span>,<br>GST는 <span class="hi">더 정확한 일정</span>을 드릴 수 있습니다."</p>
+    <p class="sub">// 종이가 사라지는 게 아니라, 같은 일을 더 정확하게, 덜 번거롭게</p>
+  </section>
+
+  <!-- 5. 시스템 구성도 -->
+  <section class="slide">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">시스템 구성</div>
+    </div>
+    <p class="section-sub">두 부분으로 나뉘어 있고, 오늘 보실 건 OPS 쪽</p>
+    <div class="system-row">
+      <div class="sys-card">
+        <span class="badge ops">OPS</span>
+        <h3>AXIS-OPS</h3>
+        <p>현장 작업자용 핸드폰 PWA · QR 스캔 · Task · 체크리스트. 별도 앱스토어 설치 없이 브라우저로 진입.</p>
+      </div>
+      <div class="sys-arrow">↔</div>
+      <div class="sys-card">
+        <span class="badge view">VIEW</span>
+        <h3>AXIS-VIEW</h3>
+        <p>매니저·관리자용 PC 대시보드 · 생산 현황 실시간 시각화 · 체크리스트 검수 · 분석.</p>
+      </div>
+    </div>
+    <p class="sys-note">오늘 여러분이 보실 건 <span class="accent">AXIS-OPS</span> 입니다 — VIEW는 매니저분들 입장이라 따로 언급만</p>
+  </section>
+
+  <!-- 6. 작업 흐름 -->
+  <section class="slide">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">실제 작업 흐름</div>
+    </div>
+    <p class="section-sub">종이 작업지시서가 QR 스캔 한 번으로 대체됩니다</p>
+    <div class="flow">
+      <div class="flow-step">출근</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step hi">QR 스캔</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Task 목록</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step hi">시작 버튼</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">작업 수행</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step hi">완료 버튼</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">다음 Task</div>
+    </div>
+    <p class="flow-note">핵심 두 버튼만 기억하시면 됩니다 — <span class="hi">"시작"</span> 과 <span class="hi">"완료"</span>.<br>종이에 시간 적던 부분이 이 두 번의 탭으로 끝납니다.</p>
+  </section>
+
+  <!-- 7. 회차 안내 -->
+  <section class="slide">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">오늘 회차 안내</div>
+    </div>
+    <p class="section-sub">앞 절반은 공통, 후반부에 본인 카테고리 특화 부분</p>
+    <div class="session-split">
+      <div class="session-card mech">
+        <div class="sc-meta">MORNING · 오전 회차</div>
+        <h3>MECH 협력사</h3>
+        <div class="target">FNI · BAT · TMS(M)</div>
+        <ul class="sc-list">
+          <li>Tank Docking 자동 알림 (ELEC 매니저에게 전달)</li>
+          <li>신규 MECH 체크리스트 73항목 + 자재 마스터(VIEW 등록) 연동</li>
+          <li>INLET S/N · MFC · Flow Sensor 자재 입력</li>
+        </ul>
+      </div>
+      <div class="session-card elec">
+        <div class="sc-meta">AFTERNOON · 오후 회차</div>
+        <h3>ELEC 협력사</h3>
+        <div class="target">P&S · C&A · TMS(E)</div>
+        <ul class="sc-list">
+          <li>Phase 1 + Phase 2 분리 체크리스트 (31항목)</li>
+          <li>JIG WORKER · QI 검사자 분기</li>
+          <li>DUAL 모델 L/R 분리 — 각각 별도 제출</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Live 전환 안내 -->
+  <section class="slide live-cue-slide">
+    <div class="live-label"><span class="pulse"></span>LIVE · 라이브 매뉴얼 시연</div>
+    <h2>실제 시스템을 같이 보겠습니다</h2>
+    <p class="sub">슬라이드는 잠시 접고, 우측에 띄운 매뉴얼 사이트로 옮겨갑니다. 교육 후 막히실 때 다시 오실 곳도 여기입니다.</p>
+    <div class="url-box">▶ 매뉴얼 사이트 (URL 마지막 슬라이드에 QR 배포)</div>
+  </section>
+
+  <!-- 9. 공통 사용법 (라이브 영역 매핑) -->
+  <section class="slide">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-title">공통 사용법 시연 매핑<span class="live-tag">LIVE 8분</span></div>
+    </div>
+    <p class="section-sub">강사가 매뉴얼 사이트 띄우고 짚어가며 자연스럽게 설명</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:14%">시간</th>
+          <th style="width:32%">매뉴얼 페이지</th>
+          <th>핵심 내용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="time-cell">3분</td>
+          <td><code>operator/qr-scan</code></td>
+          <td>카메라 권한 · DOC_ / LOC_ 자동 인식 · 명판 QR 5~10cm 거리 팁</td>
+        </tr>
+        <tr>
+          <td class="time-cell">3분</td>
+          <td><code>operator/task-workflow</code></td>
+          <td>시작 → 완료 두 버튼 · 멀티 작업자 시나리오 · "내 작업 종료" vs "작업 완료"</td>
+        </tr>
+        <tr>
+          <td class="time-cell">2분</td>
+          <td><code>operator/login-and-permission</code></td>
+          <td>로그인 (이미 전원 가입 완료 · 신규 입사자만 §11 별도 안내)</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 10. 카테고리 심화 (LIVE) -->
+  <section class="slide">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div class="section-title">본인 카테고리 심화<span class="live-tag">LIVE 18분</span></div>
+    </div>
+    <p class="section-sub">회차에 따라 한쪽만 시연 — 매뉴얼 사이트의 해당 섹션을 라이브로</p>
+    <div class="session-split">
+      <div class="session-card mech">
+        <div class="sc-meta">MORNING · MECH 시연</div>
+        <h3>강조 포인트</h3>
+        <ul class="sc-list">
+          <li>Tank Docking 완료 → ELEC 매니저에게 자동 알림</li>
+          <li>신규 MECH 체크리스트 73항목 / 20그룹</li>
+          <li>진입 시점 4 Task — UTIL_LINE_1·2 · WASTE_GAS_LINE_2 · 자주검사</li>
+          <li>INLET S/N 8개 — DRAGON만 L/R 분리</li>
+          <li>자재 마스터 SELECT — VIEW [자재 마스터] 페이지에서 등록 (185 자재 · 1,626 BOM · Sprint 66~)</li>
+        </ul>
+        <div class="sc-note">⚠ OPS 앱 v2.12.2 이상 권장</div>
+      </div>
+      <div class="session-card elec">
+        <div class="sc-meta">AFTERNOON · ELEC 시연</div>
+        <h3>강조 포인트</h3>
+        <ul class="sc-list">
+          <li>Phase 1 + Phase 2 분리 (31항목)</li>
+          <li>JIG WORKER · QI 검사자 색상 분기</li>
+          <li>INSPECTION freeroll (I.F 2 FINAL 트리거)</li>
+          <li>DUAL 모델 L/R 분리 — qr_doc_id 끝 -L / -R</li>
+          <li>각각 별도 체크리스트 + 별도 제출</li>
+        </ul>
+        <div class="sc-note">⚠ DUAL 한쪽만 작성 후 잊는 케이스 주의</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. 자주 발생 문제 -->
+  <section class="slide">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <div class="section-title">자주 발생하는 문제 · 해결</div>
+    </div>
+    <p class="section-sub">현장 운영에서 반복적으로 나오는 케이스 정리</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:12%">구분</th>
+          <th style="width:42%">증상</th>
+          <th>해결</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="ts-tag mech">MECH</span></td>
+          <td>체크리스트 진입 토스트가 안 보임</td>
+          <td>OPS 앱 v2.11.2 이상 업데이트</td>
+        </tr>
+        <tr>
+          <td><span class="ts-tag mech">MECH</span></td>
+          <td>2차 화면에 1차 입력값이 빈 표시</td>
+          <td>OPS 앱 v2.11.5 이상 업데이트</td>
+        </tr>
+        <tr>
+          <td><span class="ts-tag mech">MECH</span></td>
+          <td>자재 SELECT 옵션이 임시 텍스트로 표시</td>
+          <td>OPS 앱 v2.12.2 이상 업데이트</td>
+        </tr>
+        <tr>
+          <td><span class="ts-tag elec">ELEC</span></td>
+          <td>DUAL 한쪽만 작성하고 다른 쪽 누락</td>
+          <td>L/R 각각 별도 진입 + 제출</td>
+        </tr>
+        <tr>
+          <td><span class="ts-tag elec">ELEC</span></td>
+          <td>QI 항목을 본인이 채워도 실적에 미반영</td>
+          <td>JIG WORKER (회색) 항목만 본인 담당</td>
+        </tr>
+        <tr>
+          <td><span class="ts-tag common">공통</span></td>
+          <td>카메라 권한 팝업이 안 보임</td>
+          <td>주소창 좌측 🔒 아이콘 → 카메라 허용</td>
+        </tr>
+        <tr>
+          <td><span class="ts-tag common">공통</span></td>
+          <td>작업 완료 누르지 못한 채 퇴근</td>
+          <td>익일 매니저에게 보고 → 매니저 강제종료 처리</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 12. 예외·협업 (LIVE) -->
+  <section class="slide">
+    <div class="section-header">
+      <div class="section-num">9</div>
+      <div class="section-title">예외 · 협업 상황 시연 매핑<span class="live-tag">LIVE 10분</span></div>
+    </div>
+    <p class="section-sub">현장 협업 / 알람 / 강제종료 — 강사가 매뉴얼 라이브로 짚어가며</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:14%">시간</th>
+          <th style="width:32%">매뉴얼 페이지</th>
+          <th>핵심 내용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="time-cell">5분</td>
+          <td><code>operator/relay-and-pause</code></td>
+          <td>작업 릴레이 · 일시정지 · 휴게시간 자동 pause (10:00 · 11:20 · 15:00 · 17:00)</td>
+        </tr>
+        <tr>
+          <td class="time-cell">3분</td>
+          <td><code>operator/alerts</code></td>
+          <td>작업자가 받는 알람 vs 매니저 알람 구분</td>
+        </tr>
+        <tr>
+          <td class="time-cell">2분</td>
+          <td>강제 종료 안내</td>
+          <td>매니저가 처리 · 알림 수신 · 분석에 불리하지 않음</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 13. 기억할 5가지 -->
+  <section class="slide">
+    <div class="section-header">
+      <div class="section-num">10</div>
+      <div class="section-title">오늘 기억할 5가지</div>
+    </div>
+    <p class="section-sub">한 줄로 압축하면 이 다섯</p>
+    <ol class="remember-list">
+      <li><div><strong>회사 · 역할 정확히</strong>가입할 때만 본인이 선택 — 잘못 시 매니저 통해 수정</div></li>
+      <li><div><strong>시작 → 완료</strong>두 번의 버튼이 작업 기록의 핵심</div></li>
+      <li><div><strong>멀티 작업자 환경</strong>본인 "시작" / 본인 종료 "내 작업 종료" / 마지막 "작업 완료"</div></li>
+      <li><div><strong>휴게시간 자동 pause</strong>점심·휴식 시간만큼 작업 시간 손해 없음</div></li>
+      <li><div><strong>막히면 매뉴얼 + FAQ</strong>그 다음 협력사 매니저, 그래도 안 풀리면 GST AX팀</div></li>
+    </ol>
+  </section>
+
+  <!-- 14. 사후 자료 -->
+  <section class="slide">
+    <div class="section-header">
+      <div class="section-num">11</div>
+      <div class="section-title">교육 이후 다시 찾으실 곳</div>
+    </div>
+    <p class="section-sub">현장에서 막히실 때 가장 먼저 보실 곳 + 동의서 신규/갱신</p>
+    <div class="resource-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+      <div class="resource-card">
+        <div class="rc-label">REFERENCE · 01</div>
+        <h4>AXIS 매뉴얼 사이트</h4>
+        <p>전체 사용법 · 체크리스트 · 알람. 검색창에 키워드만 치면 해당 페이지로 즉시 이동.</p>
+        <div class="rc-url">OPS 앱의 [📖 매뉴얼] 버튼으로 진입</div>
+      </div>
+      <div class="resource-card">
+        <div class="rc-label">REFERENCE · 02</div>
+        <h4>FAQ 페이지</h4>
+        <p>카메라 권한 · QR 인식 · 체크리스트 · 출퇴근 · 미종료 작업 트러블슈팅 모음.</p>
+        <div class="rc-url">매뉴얼 사이트 → /faq</div>
+      </div>
+      <div class="resource-card">
+        <div class="rc-label">REFERENCE · 03</div>
+        <h4>AXIS 시스템 동의서</h4>
+        <p>신규 입사자 가입 시 · 동의 갱신 시 자필 서명까지 1~2분에 제출. 입구 QR로 즉시 진입.</p>
+        <div class="rc-url">axis-consent.netlify.app</div>
+      </div>
+    </div>
+    <p style="margin-top: 22px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--g400); text-align: center;">
+      매뉴얼 상단 배너에 현재 OPS · VIEW 버전이 자동 표시 (v1.9.0~) · 신규 입사자 가입 절차는 <code style="font-family: 'JetBrains Mono', monospace; font-size: 11px; background: var(--a-light); padding: 2px 6px; border-radius: 3px; color: var(--a);">operator/login-and-permission</code> 참조
+    </p>
+  </section>
+
+  <!-- 15. Q&A -->
+  <section class="slide qa-slide">
+    <h1>Q &amp; A</h1>
+    <p class="sub">질문 있으신 분?</p>
+    <div class="signup-note">
+      <span class="label">NEW HIRE</span>
+      신규 입사자는 본인 단말에서 가입 → 협력사 매니저 승인 → 시스템 사용. 기존 작업자분들은 이미 가입 완료 상태.
+    </div>
+    <p class="footer-note">동의서 미제출자는 입구 QR로 즉시 제출 · 신규 가입 시/동의 갱신 시에도 같은 QR 사용 가능</p>
+  </section>
+
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  document.getElementById('tot').textContent = total;
+  let cur = 0;
+
+  function show(i) {
+    if (i < 0) i = 0;
+    if (i >= total) i = total - 1;
+    slides[cur].classList.remove('active');
+    slides[i].classList.add('active');
+    cur = i;
+    document.getElementById('cur').textContent = cur + 1;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault();
+      show(cur + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      show(cur - 1);
+    } else if (e.key === 'Home') {
+      show(0);
+    } else if (e.key === 'End') {
+      show(total - 1);
+    } else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+    }
+  });
+
+  document.querySelector('.deck').addEventListener('click', e => {
+    const w = window.innerWidth;
+    if (e.clientX > w / 2) show(cur + 1);
+    else show(cur - 1);
+  });
+</script>
+
+</body>
+</html>
